@@ -46,5 +46,8 @@ const autenticar = async (req, res) => {
     return res.status(403).json({ msg: error.message });
   }
 };
+const confirmar = async (req, res) => {
+  console.log(req.params.token);
+};
 
-export { registrar, autenticar };
+export { registrar, autenticar, confirmar };
