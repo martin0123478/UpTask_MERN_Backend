@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import bcrypt, { compare } from "bcrypt";
 const usuarioSchema = mongoose.Schema(
   {
     nombre: {
@@ -38,6 +38,10 @@ usuarioSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+usuarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
+  return await bcrypt.compare(passwordFormulario, this.password);
+};
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
