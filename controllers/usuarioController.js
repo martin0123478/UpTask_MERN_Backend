@@ -19,4 +19,6 @@ const registrar = async (req, resp) => {
   }
 };
 
-export { registrar };
+const autenticar = async (req, res) => {};
+
+export { registrar, autenticar };
