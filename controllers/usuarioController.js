@@ -110,6 +110,10 @@ const nuevoPassword = async (req, res) => {
     return res.status(404).json({ msg: error.message });
   }
 };
+
+const perfil = async (req, res) => {
+  console.log("desde perfil");
+};
 export {
   registrar,
   autenticar,
@@ -117,4 +121,5 @@ export {
   olvidePassword,
   comprobarToken,
   nuevoPassword,
+  perfil,
 };
