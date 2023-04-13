@@ -53,7 +53,20 @@ const actualizarTarea = async (req, res) => {
     console.log(error);
   }
 };
-const eliminarTarea = async (req, res) => {};
+const eliminarTarea = async (req, res) => {
+  const { id } = req.params;
+  const tarea = await Tarea.findById(id).populate("proyecto");
+  if (tarea.proyecto.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("Acción no permitida");
+    return res.status(404).json({ msg: error.message });
+  }
+  try {
+    await tarea.deleteOne();
+    res.json({ msg: "Tarea eliminada" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 const cambiarEstado = async (req, res) => {};
 
 export {
