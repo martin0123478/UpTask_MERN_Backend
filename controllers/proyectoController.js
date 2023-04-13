@@ -18,7 +18,15 @@ const nuevoProyecto = async (req, res) => {
   }
 };
 
-const obtenerProyecto = async (req, res) => {};
+const obtenerProyecto = async (req, res) => {
+  const { id } = req.params;
+  const proyecto = await Proyecto.findById(id);
+  console.log();
+  if (proyecto.creador.toString() !== req.usuario._id.toString()) {
+    return res.status(404).json({ msg: "Accion no valida" });
+  }
+  res.json(proyecto);
+};
 
 const editarProyecto = async (req, res) => {};
 
