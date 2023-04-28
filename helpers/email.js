@@ -28,3 +28,32 @@ export const emailRegistro = async (datos) => {
     `,
   });
 };
+
+export const emailOlvidePassword = async (datos) => {
+  const { email, nombre, token } = datos;
+  const transport = nodemailer.createTransport({
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: "9036bb1991cc17",
+      pass: "4241df9b56464c",
+    },
+  });
+
+  //información del email
+  const info = await transport.sendMail({
+    from: '"UpTask - Administrador e proyectos <cuentas@uptask.com>"',
+    to: email,
+    subject: "UpTask -  Restablece tu password",
+    text: "Restablece tu password",
+    html: `
+    
+        <p>Hola: ${nombre} has solicitado resetear tu password</p>
+        <p>Sigue el sigiente enlace para generar un nuevo password:
+        
+        <a href="${process.env.FRONTEND_URL}/olvide-password/${token}">Restablecer password</a>
+        </p>
+    
+    `,
+  });
+};
