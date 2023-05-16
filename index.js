@@ -51,4 +51,7 @@ io.on("connection", (socket) => {
   console.log("conectado a socket.io");
 
   //definir eventos
+  socket.on("abrir proyecto", (proyecto) => {
+    socket.join(proyecto);
+  });
 });
